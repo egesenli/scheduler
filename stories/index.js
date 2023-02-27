@@ -133,6 +133,6 @@ storiesOf("InterviewerListItem", module)
     .add("Clickable", () => (
       <InterviewerList
         interviewers={interviewers}
-        setInterviewer={action("setCurrentInterviewerID")}
-      />
-    ));
+        setInterviewer={() => action("setCurrentInterviewerID")(interviewer.id)}
+        />
+      ));
