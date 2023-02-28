@@ -160,41 +160,21 @@ storiesOf("Appointment", module)
       onEdit={action("onEdit")}
       onDelete={action("onDelete")}
     />
-  ));
-
-storiesOf("Confirm", module)
-  .addParameters({
-    backgrounds: [{ name: "white", value: "#fff", default: true }]
-  })
-  .add("default", () => (
+  ))
+  .add("Confirm", () => (
     <Confirm
       message="Delete the appointment?"
       onConfirm={action("onConfirm")}
       onCancel={action("onCancel")}
     />
-  ));
-
-storiesOf("Status", module)
-  .addParameters({
-    backgrounds: [{ name: "white", value: "#fff", default: true }],
-  })
-  .add("default", () => <Status message="Deleting" />);
-
-storiesOf("Error", module)
-  .addParameters({
-    backgrounds: [{ name: "white", value: "#fff", default: true }]
-  })
-  .add("default", () => (
+  ))
+  .add("Status", () => <Status message="Deleting" />)
+  .add("Error", () => (
     <Error
       message="Could not delete appointment."
       onClose={action("onClose")}
     />
-  ));
-
-  storiesOf("Form", module)
-  .addParameters({
-    backgrounds: [{ name: "white", value: "#fff", default: true }]
-  })
+  ))
   .add("Create", () => (
     <Form
       interviewers={interviewers}
