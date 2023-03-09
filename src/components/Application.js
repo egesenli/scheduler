@@ -44,29 +44,17 @@ const appointments = {
   }
 };
 
-
 export default function Application(props) {
+  const [day, setDay] = useState("Monday");
+  const [days, setDays] = useState([]);
+  useEffect(() => {
+    axios.get('/api/days') //Make a GET request to fetch the days data from the API
+      .then(response => {
+        setDays(response.data);
+      })
+      .catch(error => console.log(error));
+  }, []);
 
-  const [day, setDay] = useState("Monday"); //State for selected day default is Monday.
-  const days = [
-    {
-      id: 1,
-      name: "Monday",
-      spots: 2,
-    },
-    {
-      id: 2,
-      name: "Tuesday",
-      spots: 5,
-    },
-    {
-      id: 3,
-      name: "Wednesday",
-      spots: 0,
-    },
-  ];
-
-  // Select appointments for the current day
   const appointmentsForDay = appointments;
   const schedule = Object.values(appointmentsForDay).map(appointment => {
     return <Appointment
@@ -86,7 +74,7 @@ export default function Application(props) {
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
           <DayList
-            days={days}
+            days={days} // Use the days state instead of the hardcoded array
             value={day}
             onChange={setDay}
           />
