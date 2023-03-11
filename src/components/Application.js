@@ -25,6 +25,27 @@ export default function Application(props) {
     setState(prevState => ({ ...prevState, interviewers }));
   };
 
+  const bookInterview = (id, interview) => {
+    // create a copy of the appointments object in state
+    const appointments = {
+      ...state.appointments
+    };
+
+    // update the appointment object with the new interview
+    appointments[id].interview = { ...interview };
+
+    // update the state with the new appointments object
+    setState({
+      ...state,
+      appointments
+    });
+
+    // make a PUT request to the server to update the state there as well
+    axios.put(`/api/appointments/${id}`, { interview })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
@@ -50,6 +71,7 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
       />
     );
   });
