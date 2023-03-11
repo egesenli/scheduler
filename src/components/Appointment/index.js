@@ -9,7 +9,6 @@ import Status from "./Status";
 import Confirm from "./Confirm";
 import Error from "./Error";
 
-
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -18,6 +17,7 @@ const ERROR_SAVE = "Could not save appointment";
 const ERROR_DELETE = "Could not delete appointment";
 const CONFIRM = "CONFIRM";
 const DELETING = "DELETING";
+const EDIT = "EDIT";
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
@@ -58,8 +58,12 @@ export default function Appointment(props) {
     transition(CONFIRM);
   };
 
+  const onEdit = () => {
+    transition(EDIT);
+  };
+
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SAVING && <Status message="Saving" />}
@@ -97,9 +101,10 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={onDelete}
+          onEdit={onEdit}
         />
       )}
-      {mode === CREATE && (
+      {(mode === CREATE || mode === EDIT) && (
         <Form
           interviewers={props.interviewers}
           onCancel={() => {
@@ -107,6 +112,8 @@ export default function Appointment(props) {
             back();
           }}
           onSave={save}
+          name={props.interview ? props.interview.student : null}
+          interviewer={props.interview ? props.interview.interviewer.id : null}
         />
       )}
     </article>
