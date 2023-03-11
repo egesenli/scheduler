@@ -26,24 +26,26 @@ export default function Application(props) {
   };
 
   const bookInterview = (id, interview) => {
-    // create a copy of the appointments object in state
+    // create a copy of the appointments object in state and update the appointment object with the new interview
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+  
     const appointments = {
-      ...state.appointments
+      ...state.appointments,
+      [id]: appointment
     };
 
-    // update the appointment object with the new interview
-    appointments[id].interview = { ...interview };
-
-    // update the state with the new appointments object
-    setState({
-      ...state,
-      appointments
-    });
-
     // make a PUT request to the server to update the state there as well
-    axios.put(`/api/appointments/${id}`, { interview })
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    return axios.put(`/api/appointments/${id}`, { interview })
+      .then(() => {
+        setState({
+          ...state,
+          appointments
+        });
+      });
   };
 
   useEffect(() => {
