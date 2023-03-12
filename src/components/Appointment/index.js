@@ -4,11 +4,12 @@ import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
-import useVisualMode from "hooks/useVisualMode";
 import Status from "./Status";
 import Confirm from "./Confirm";
 import Error from "./Error";
+import useVisualMode from "hooks/useVisualMode";
 
+//Modes for the Appointment component
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -20,11 +21,13 @@ const DELETING = "DELETING";
 const EDIT = "EDIT";
 
 export default function Appointment(props) {
+  //Using the useVisualMode hook to set the mode and transition between modes
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(false);  //State for the error
 
+  //Function to save the appointment
   const save = (name, interviewer) => {
     const interview = {
       student: name,
@@ -39,7 +42,7 @@ export default function Appointment(props) {
         setError(true);
       });
   };
-
+  //Function to delete the appointment
   const deleteAppointment = () => {
     transition(DELETING);
     props
@@ -54,14 +57,15 @@ export default function Appointment(props) {
       });
   };
 
-  const onDelete = () => {
+  const onDelete = () => { //Transition to the confirm mode when the delete button is clicked
     transition(CONFIRM);
   };
 
-  const onEdit = () => {
+  const onEdit = () => { //Transition to the edit mode when the edit button is clicked
     transition(EDIT);
   };
 
+  //Returning the article element with the header and the mode of the appointment component
   return (
     <article className="appointment" data-testid="appointment">
       <Header time={props.time} />

@@ -1,5 +1,6 @@
 import React from "react";
 
+//Header component that takes in props and returns a header element
 export default function Header(props) {
   return (
     <header className="appointment__time">
