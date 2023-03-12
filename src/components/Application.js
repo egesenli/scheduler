@@ -11,11 +11,12 @@ import {
 
 export default function Application(props) {
   const { state, setDay, bookInterview, cancelInterview } =
-    useApplicationData();
+    useApplicationData();   //Deconstructing the state and the functions from the useApplicationData hook
 
+  //Getting the appointments for the day and the interviewers for the day
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
-
+  //Mapping through the appointments and returning the appointment component
   const schedule = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
 
@@ -31,7 +32,7 @@ export default function Application(props) {
       />
     );
   });
-
+  //Returning the main component with the sidebar and the schedule
   return (
     <main className="layout">
       <section className="sidebar">
