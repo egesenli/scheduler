@@ -2,6 +2,7 @@ import { getAppointmentsForDay } from "helpers/selectors";
 import { getInterviewersForDay } from "helpers/selectors";
 import { getInterview } from "helpers/selectors";
 
+//Test data
 const state = {
   days: [
     {
@@ -33,7 +34,7 @@ const state = {
     }
   },
   interviewers: {
-    "1": {  
+    "1": {
       "id": 1,
       "name": "Sylvia Palmer",
       "avatar": "https://i.imgur.com/LpaY82x.png"
