@@ -1,5 +1,6 @@
 import React from "react";
 
+//Add the mock data to the mock axios file
 const fixtures = {
   days: [
     {
@@ -54,7 +55,7 @@ const fixtures = {
     }
   }
 };
-
+//Mock the axios module
 export default {
   defaults: { baseURL: "" },
   get: jest.fn(url => {
